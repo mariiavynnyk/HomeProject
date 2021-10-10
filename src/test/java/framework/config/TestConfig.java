@@ -1,4 +1,4 @@
-package framework;
+package framework.config;
 
 import org.aeonbits.owner.Config;
 import org.aeonbits.owner.ConfigFactory;

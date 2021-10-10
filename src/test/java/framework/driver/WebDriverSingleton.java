@@ -1,9 +1,10 @@
 package framework.driver;
 
-import framework.TestConfig;
+import framework.config.TestConfig;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -20,21 +21,30 @@ public class WebDriverSingleton {
     public static WebDriver getDriver() {
         if (driver.get() == null) {
 
-            if (TestConfig.cfg.remote()) {
-                try {
-                    System.out.println((TestConfig.cfg.remote()));
-                    DesiredCapabilities capabilities = new DesiredCapabilities();
-                    capabilities.setCapability("browserName", "chrome");
-                    capabilities.setCapability("enableVnc", true);
-                    driver.set(new RemoteWebDriver(new URL(TestConfig.cfg.remoteUrl()), capabilities));
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
+            switch (TestConfig.cfg.browser()) {
+                case "firefox": {
+                    WebDriverManager.firefoxdriver().setup();
+                    driver.set(new FirefoxDriver());
+                    break;
                 }
-            } else {
-                WebDriverManager.chromedriver().setup();
-                driver.set(new ChromeDriver());
+                default: {
+                    if (TestConfig.cfg.remote()) {
+                        try {
+                            System.out.println((TestConfig.cfg.remote()));
+                            DesiredCapabilities capabilities = new DesiredCapabilities();
+                            capabilities.setCapability("browserName", "chrome");
+                            capabilities.setCapability("browserVersion", "94.0");
+                            capabilities.setCapability("enableVnc", true);
+                            driver.set(new RemoteWebDriver(new URL(TestConfig.cfg.remoteUrl()), capabilities));
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        WebDriverManager.chromedriver().setup();
+                        driver.set(new ChromeDriver());
+                    }
+                }
             }
-
             driver.get().manage().window().maximize();
         }
         return driver.get();

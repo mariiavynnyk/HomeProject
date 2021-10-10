@@ -9,12 +9,11 @@ import org.testng.annotations.Test;
 
 import static framework.driver.WebDriverSingleton.getDriver;
 
-public class firstTest {
+public class verifyUserCanAddItemToBasketTest {
 
     WebDriver driver;
 
     String expectedTitle = "BUTLERS";
-    private String actualTitle;
 
     @BeforeClass
     public void beforeActions() {
@@ -24,7 +23,7 @@ public class firstTest {
 
     @Test
     public void verifyTitle() {
-        actualTitle = driver.getTitle();
+        String actualTitle = driver.getTitle();
         Assert.assertEquals(actualTitle, expectedTitle, "Title isn't match");
 
     }
