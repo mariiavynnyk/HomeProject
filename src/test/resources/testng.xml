@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite configfailurepolicy="continue" group-by-instances="true" name="Regression" parallel="tests"
+       thread-count="1" verbose="1">
+    <test group-by-instances="true" name="Regression">
+        <packages>
+            <package name="new"></package>
+        </packages>
+    </test>
+</suite>
