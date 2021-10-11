@@ -1,8 +1,8 @@
-package framework.pages.login;
+package io.ctdev.framework.pages.login;
 
-import framework.config.TestConfig;
-import framework.model.Customer;
-import framework.pages.AbstractPage;
+import io.ctdev.framework.config.TestConfig;
+import io.ctdev.framework.model.Customer;
+import io.ctdev.framework.pages.AbstractPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

@@ -1,4 +1,4 @@
-package framework.model;
+package io.ctdev.framework.model;
 
 public class Customer {
     private String email;

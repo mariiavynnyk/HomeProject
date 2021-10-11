@@ -1,4 +1,4 @@
-package framework.pages;
+package io.ctdev.framework.pages;
 
 import org.openqa.selenium.WebDriver;
 

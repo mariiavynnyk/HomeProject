@@ -1,15 +1,15 @@
-import framework.config.TestConfig;
-import framework.driver.WebDriverSingleton;
-import framework.model.Customer;
-import framework.pages.login.LoginPage;
-import org.junit.Assert;
+import io.ctdev.framework.config.TestConfig;
+import io.ctdev.framework.driver.WebDriverSingleton;
+import io.ctdev.framework.model.Customer;
+import io.ctdev.framework.pages.login.LoginPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import static framework.driver.WebDriverSingleton.getDriver;
+import static io.ctdev.framework.driver.WebDriverSingleton.getDriver;
 
 public class VerifyUserCanLoginPageTest {
 
@@ -29,7 +29,7 @@ public class VerifyUserCanLoginPageTest {
     public void verifyLogIn() {
         loginPage.logInAsCustomer(customer);
 
-        Assert.assertTrue("Customer Icon is present", loginPage.isAccountIconPresent());
+        Assert.assertTrue(loginPage.isAccountIconPresent(), "Customer Icon is present");
     }
 
     @AfterClass

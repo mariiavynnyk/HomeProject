@@ -1,4 +1,4 @@
-package framework.config;
+package io.ctdev.framework.config;
 
 import org.aeonbits.owner.Config;
 import org.aeonbits.owner.ConfigFactory;
