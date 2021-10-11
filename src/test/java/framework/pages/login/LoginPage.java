@@ -25,6 +25,8 @@ public class LoginPage extends AbstractPage {
     @FindBy(xpath = "//*[contains(@class,'login-button')]")
     private WebElement loginButton;
 
+    @FindBy(className = "ico-account")
+    private WebElement accountIcon;
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -55,6 +57,10 @@ public class LoginPage extends AbstractPage {
     public LoginPage clickOnLoginButton() {
         loginButton.click();
         return this;
+    }
+
+    public boolean isAccountIconPresent() {
+        return accountIcon.isDisplayed();
     }
 
     public LoginPage logInAsCustomer(Customer customer) {

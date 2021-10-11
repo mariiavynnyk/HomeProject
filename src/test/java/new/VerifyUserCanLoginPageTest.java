@@ -2,6 +2,7 @@ import framework.config.TestConfig;
 import framework.driver.WebDriverSingleton;
 import framework.model.Customer;
 import framework.pages.login.LoginPage;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
@@ -18,7 +19,7 @@ public class VerifyUserCanLoginPageTest {
 
     @BeforeClass
     public void beforeActions() {
-        customer = Customer.newBuilder().withName("test@gmail.com").withPassword("testAUTO123").build();
+        customer = Customer.newBuilder().withName("andrewotroh@gmail.com").withPassword("testAUTO123").build();
         loginPage = new LoginPage(driver);
         driver.get(TestConfig.cfg.baseUrl());
         WebDriverWait wait = new WebDriverWait(driver, 5);
@@ -27,6 +28,8 @@ public class VerifyUserCanLoginPageTest {
     @Test
     public void verifyLogIn() {
         loginPage.logInAsCustomer(customer);
+
+        Assert.assertTrue("Customer Icon is present", loginPage.isAccountIconPresent());
     }
 
     @AfterClass
