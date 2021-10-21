@@ -1,7 +1,10 @@
+package io.ctdev.web.tests;
+
 import io.ctdev.framework.config.TestConfig;
 import io.ctdev.framework.driver.WebDriverSingleton;
 import io.ctdev.framework.model.Customer;
 import io.ctdev.framework.pages.login.LoginPage;
+import io.qameta.allure.Description;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -26,6 +29,7 @@ public class VerifyUserCanLoginPageTest {
     }
 
     @Test
+    @Description("Verify user can login")
     public void verifyLogIn() {
         loginPage.logInAsCustomer(customer);
 

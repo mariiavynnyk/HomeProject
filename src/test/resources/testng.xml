@@ -2,7 +2,7 @@
 <suite name="Regression Suite" verbose="1" configfailurepolicy="continue" parallel="none" thread-count="1">
     <test name="Regression" >
         <packages>
-            <package name="io.ctdev.web.tests"/>
+            <package name="io.ctdev.web.tests.*"/>
         </packages>
     </test>
 </suite>
