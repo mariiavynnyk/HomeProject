@@ -1,25 +1,17 @@
-version: '3.6'
+version: '3.9'
 
 services:
-#  selenoid-chrome:
-#    image: selenoid/vnc:chrome_76.0
-#    container_name: selenoid-chrome
-#    network_mode: "bridge"
-#    logging:
-#      driver: none
 
   selenoid:
     image: aerokube/selenoid
     container_name: selenoid
     command: -listen :4444 -limit 10 -conf /etc/selenoid/browsers.json -video-output-dir /opt/selenoid/video/ -timeout 3m0s
     ports:
-      - "4444:4444"
+      - "4445:4444"
     volumes:
       - "$PWD:/etc/selenoid/"
       - "/var/run/docker.sock:/var/run/docker.sock"
     network_mode: "bridge"
-#    links:
-#      - selenoid-chrome
 
   selenoid-ui:
     image: aerokube/selenoid-ui
@@ -27,49 +19,21 @@ services:
     links:
       - selenoid
     ports:
-      - "8080:8080"
+      - "8081:8080"
     command: ["--selenoid-uri", "http://selenoid:4444"]
     network_mode: "bridge"
 
   maven:
     build:
       context: image/maven
-      args:
-        USER_NAME: ${USER_NAME}
-        PASSWORD: ${PASSWORD}
-        USERAPI: ${USERAPI}
-        PASSWORDAPI: ${PASSWORDAPI}
     container_name: maven
-    env_file:
-      - ./.env
     network_mode: "bridge"
     volumes:
       - .:/app
     working_dir: /app
-#    depends_on:
-#      - selenoid-chrome
+    #    depends_on:
+    #      - selenoid-chrome
     links:
       - selenoid
-#      - selenoid-chrome
-    command: ["mvn", "clean", "test", "-Dgrid=Y", "-Dusername=${USER_NAME}", "-Dpassword=${PASSWORD}", "-DusernameAPI=${USERAPI}", "-DpasswordAPI=${PASSWORDAPI}"]
-
-#  maven:
-#    image: maven:3.6-jdk-11
-#    container_name: maven
-#    env_file:
-#      - ./.env
-#    environment:
-#      - USER=${USER}
-#      - PASSWORD=${PASSWORD}
-#      - USERAPI=${USERAPI}
-#      - PASSWORDAPI=${PASSWORDAPI}
-#    volumes:
-#      - "$PWD:/app"
-#    working_dir: "/app"
-#    depends_on:
-#      - selenoid-chrome
-#    command: ["mvn", "clean", "test", "-Dusername=${USER}", "-Dpassword=${PASSWORD}", "-DusernameAPI=${USERAPI}", "-DpasswordAPI=${PASSWORDAPI}"]
-#    links:
-#      - selenoid
-#      - selenoid-chrome
-#    network_mode: "bridge"
+    #      - selenoid-chrome
+    command: ["mvn", "clean", "test"]
