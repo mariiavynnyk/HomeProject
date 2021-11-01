@@ -7,7 +7,7 @@ services:
     container_name: selenoid
     command: -listen :4444 -limit 10 -conf /etc/selenoid/browsers.json -video-output-dir /opt/selenoid/video/ -timeout 3m0s
     ports:
-      - "4445:4444"
+      - "4444:4444"
     volumes:
       - "$PWD:/etc/selenoid/"
       - "/var/run/docker.sock:/var/run/docker.sock"
