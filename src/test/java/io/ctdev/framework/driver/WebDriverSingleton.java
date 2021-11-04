@@ -33,7 +33,7 @@ public class WebDriverSingleton {
                             System.out.println((TestConfig.cfg.remote()));
                             DesiredCapabilities capabilities = new DesiredCapabilities();
                             capabilities.setCapability("browserName", "chrome");
-                            capabilities.setCapability("browserVersion", "94.0");
+                            capabilities.setCapability("browserVersion", "91.0");
                             capabilities.setCapability("enableVNC", true);
                             driver.set(new RemoteWebDriver(new URL(TestConfig.cfg.remoteUrl()), capabilities));
                         } catch (MalformedURLException e) {
