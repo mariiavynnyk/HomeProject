@@ -6,7 +6,6 @@ import io.ctdev.framework.model.Customer;
 import io.ctdev.framework.pages.login.LoginPage;
 import io.qameta.allure.Description;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -15,7 +14,7 @@ import org.testng.annotations.Test;
 import static io.ctdev.framework.driver.WebDriverSingleton.getDriver;
 import static java.lang.String.format;
 
-public class VerifyUserCanLoginPageTest {
+public class VerifyUserCanAddProductToBasketTest {
 
     private final WebDriver driver = getDriver();
     private Customer customer;
@@ -28,7 +27,6 @@ public class VerifyUserCanLoginPageTest {
         customer = Customer.newBuilder().withName("andrewotroh@gmail.com").withPassword("testAUTO123").build();
         loginPage = new LoginPage(driver);
         driver.get(TestConfig.cfg.baseUrl());
-        WebDriverWait wait = new WebDriverWait(driver, 5);
     }
 
     @Test
@@ -44,7 +42,7 @@ public class VerifyUserCanLoginPageTest {
     @Description("Verify User Can Find Product")
     public void verifyUserFindProduct() {
         loginPage.searchProduct(productName);
-        String actualProductName = loginPage.getProductName().toString();
+        String actualProductName = loginPage.getProductName();
 
         Assert.assertTrue(actualProductName.contains(productName),
                 format("'%s' should be present", productName));
@@ -53,13 +51,11 @@ public class VerifyUserCanLoginPageTest {
     @Test(dependsOnMethods = "verifyUserFindProduct")
     @Description("Verify User Can Add Product")
     public void verifyUserCanAddProduct() {
-        loginPage.clickOnAddProductButton();
+        String expectedNotification = "Товар був доданий у Кошик для покупок";
 
-        String actualNotificationText = loginPage.getTextFromNotification().toString();
+        loginPage.addProductToBasket();
+        String actualNotificationText = loginPage.getTextFromNotification();
 
-        Assert.assertTrue(loginPage.isSuccessNotificationShown(),
-                "Success notification should be present");
-        String expectedNotification = "Товар був доданий";
         Assert.assertTrue(actualNotificationText.contains(expectedNotification),
                 format("'%s' should be present", expectedNotification));
     }
@@ -68,7 +64,7 @@ public class VerifyUserCanLoginPageTest {
     @Description("Verify Product is present in the basket")
     public void verifyProductIsPresentInTheBasket() {
         loginPage.clickOnBasketButton();
-        String actualProductName = loginPage.getProductNameFromBasket().toString();
+        String actualProductName = loginPage.getProductNameFromBasket();
 
         Assert.assertTrue(actualProductName.contains(productName),
                 format("'%s' should be present", productName));

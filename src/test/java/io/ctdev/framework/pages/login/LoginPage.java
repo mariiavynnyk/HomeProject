@@ -32,22 +32,22 @@ public class LoginPage extends AbstractPage {
     @FindBy(xpath = "//*[@id='small-searchterms']")
     private WebElement searchField;
 
-    @FindBy(xpath = "//*[@value='В кошик']")
+    @FindBy(xpath = "//*[@class='add-to-cart-panel']//*[@value='В кошик']")
     private WebElement addButton;
 
     @FindBy(className = "ico-account")
     private WebElement accountIcon;
 
-    @FindBy(className = "//*[@class='bar-notification success']")
+    @FindBy(xpath = "//*[@class='bar-notification success']")
     private WebElement notificationLabel;
 
-    @FindBy(className = "//*[@class='product-title']/a")
+    @FindBy(xpath = "//*[@class='product-title']/a")
     private WebElement productName;
 
-    @FindBy(className = "//*[@class='bar-notification success']/p/a")
+    @FindBy(xpath = "//*[@id='topcartlink']/a")
     private WebElement basketButton;
 
-    @FindBy(className = "//*[@class='product']/a")
+    @FindBy(xpath = "//*[@class='product']/a")
     private WebElement basketProductName;
 
     public LoginPage(WebDriver driver) {
@@ -103,15 +103,13 @@ public class LoginPage extends AbstractPage {
     }
 
     @Step("Get product name")
-    public LoginPage getProductName() {
-        productName.getText();
-        return this;
+    public String getProductName() {
+        return productName.getText();
     }
 
     @Step("Get product name")
-    public LoginPage getProductNameFromBasket() {
-        basketProductName.getText();
-        return this;
+    public String getProductNameFromBasket() {
+        return basketProductName.getText();
     }
 
     @Step("Log in as customer")
@@ -131,19 +129,14 @@ public class LoginPage extends AbstractPage {
     }
 
     @Step("Add Product")
-    public LoginPage clickOnAddProductButton() {
+    public LoginPage addProductToBasket() {
+        productName.click();
         addButton.click();
         return this;
     }
 
-    @Step("Is notification shown?")
-    public boolean isSuccessNotificationShown() {
-        return notificationLabel.isDisplayed();
-    }
-
     @Step("Get text from notification message")
-    public LoginPage getTextFromNotification() {
-        notificationLabel.getText();
-        return this;
+    public String getTextFromNotification() {
+        return notificationLabel.getText();
     }
 }
