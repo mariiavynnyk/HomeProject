@@ -1,34 +1,40 @@
-version: '3.9'
+version: '3'
 
 services:
-
   selenoid:
-    image: aerokube/selenoid:latest-release
+    image: aerokube/selenoid
     container_name: selenoid
-    command: -listen :4444 -limit 10 -conf /etc/selenoid/browsers.json -video-output-dir /opt/selenoid/video/ -timeout 3m0s
+    # command: -listen :4444 -limit 10 -conf /etc/selenoid/browsers.json -video-output-dir /opt/selenoid/video/ -timeout 3m0s -container-network selenoid
+    command: -conf /etc/selenoid/browsers.json -video-output-dir /opt/selenoid/video/ -timeout 3m0s -container-network selenoid
     ports:
       - "4445:4444"
     volumes:
       - "$PWD:/etc/selenoid/"
       - "/var/run/docker.sock:/var/run/docker.sock"
-    network_mode: "bridge"
+    networks:
+      selenoid: null
 
   selenoid-ui:
-    image: aerokube/selenoid-ui:latest-release
+    image: aerokube/selenoid-ui
     container_name: selenoid-ui
     ports:
       - "8081:8080"
-    command: ["--selenoid-uri", "http://selenoid:4444"]
-    network_mode: "bridge"
+    command: [ "--selenoid-uri", "http://selenoid:4444"]
+    networks:
+      selenoid: null
 
   maven:
     build:
       context: image/maven
     container_name: maven
-    network_mode: "bridge"
     volumes:
       - .:/app
     working_dir: /app
-    #    depends_on:
-    #      - selenoid-chrome
-    command: ["mvn", "clean", "test", "-e", "-X"]
+    command: [ "mvn", "clean", "test", "-e", "-X" ]
+    networks:
+      selenoid: null
+
+networks:
+  selenoid:
+    external:
+      name: selenoid # This assumes network is already created
