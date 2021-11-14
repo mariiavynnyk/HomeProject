@@ -40,7 +40,7 @@ public class VerifyUserCanAddProductToBasketTest {
 
     @Test(dependsOnMethods = "verifyLogIn")
     @Description("Verify User Can Find Product")
-    public void verifyUserFindProduct() {
+    public void verifyUserCanFindProduct() {
         loginPage.searchProduct(productName);
         String actualProductName = loginPage.getProductName();
 
@@ -48,7 +48,7 @@ public class VerifyUserCanAddProductToBasketTest {
                 format("'%s' should be present", productName));
     }
 
-    @Test(dependsOnMethods = "verifyUserFindProduct")
+    @Test(dependsOnMethods = "verifyUserCanFindProduct")
     @Description("Verify User Can Add Product")
     public void verifyUserCanAddProduct() {
         String expectedNotification = "Товар був доданий у Кошик для покупок";
