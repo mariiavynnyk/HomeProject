@@ -26,8 +26,29 @@ public class LoginPage extends AbstractPage {
     @FindBy(xpath = "//*[contains(@class,'login-button')]")
     private WebElement loginButton;
 
+    @FindBy(xpath = "//*[contains(@class,'search-box-button')]")
+    private WebElement searchButton;
+
+    @FindBy(xpath = "//*[@id='small-searchterms']")
+    private WebElement searchField;
+
+    @FindBy(xpath = "//*[@value='В кошик']")
+    private WebElement addButton;
+
     @FindBy(className = "ico-account")
     private WebElement accountIcon;
+
+    @FindBy(className = "//*[@class='bar-notification success']")
+    private WebElement notificationLabel;
+
+    @FindBy(className = "//*[@class='product-title']/a")
+    private WebElement productName;
+
+    @FindBy(className = "//*[@class='bar-notification success']/p/a")
+    private WebElement basketButton;
+
+    @FindBy(className = "//*[@class='product']/a")
+    private WebElement basketProductName;
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -64,9 +85,33 @@ public class LoginPage extends AbstractPage {
         return this;
     }
 
+    @Step("Click on search button")
+    public LoginPage clickOnSearchButton() {
+        searchButton.click();
+        return this;
+    }
+
+    @Step("Click on basket button")
+    public LoginPage clickOnBasketButton() {
+        basketButton.click();
+        return this;
+    }
+
     @Step("Is account icon present?")
     public boolean isAccountIconPresent() {
         return accountIcon.isDisplayed();
+    }
+
+    @Step("Get product name")
+    public LoginPage getProductName() {
+        productName.getText();
+        return this;
+    }
+
+    @Step("Get product name")
+    public LoginPage getProductNameFromBasket() {
+        basketProductName.getText();
+        return this;
     }
 
     @Step("Log in as customer")
@@ -75,6 +120,30 @@ public class LoginPage extends AbstractPage {
         setEmail(customer.getEmail());
         setPassword(customer.getPassword());
         clickOnLoginButton();
+        return this;
+    }
+
+    @Step("Search For Product")
+    public LoginPage searchProduct(String productName) {
+        searchField.sendKeys(productName);
+        clickOnSearchButton();
+        return this;
+    }
+
+    @Step("Add Product")
+    public LoginPage clickOnAddProductButton() {
+        addButton.click();
+        return this;
+    }
+
+    @Step("Is notification shown?")
+    public boolean isSuccessNotificationShown() {
+        return notificationLabel.isDisplayed();
+    }
+
+    @Step("Get text from notification message")
+    public LoginPage getTextFromNotification() {
+        notificationLabel.getText();
         return this;
     }
 }
