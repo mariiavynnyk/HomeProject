@@ -97,6 +97,7 @@ public class LoginPage extends AbstractPage {
 
     @Step("Click on basket button")
     public LoginPage clickOnBasketButton(){
+        closeNotificationButton.click();
         basketButton.click();
         return this;
     }
