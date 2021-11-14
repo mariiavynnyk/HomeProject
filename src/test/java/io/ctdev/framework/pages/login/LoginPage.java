@@ -41,10 +41,13 @@ public class LoginPage extends AbstractPage {
     @FindBy(xpath = "//*[@class='bar-notification success']")
     private WebElement notificationLabel;
 
+    @FindBy(xpath = "//*[@class='bar-notification success']/span[@class='close']")
+    private WebElement closeNotificationButton;
+
     @FindBy(xpath = "//*[@class='product-title']/a")
     private WebElement productName;
 
-    @FindBy(xpath = "//*[@id='topcartlink']/a")
+    @FindBy(xpath = "//*[@class='ico-cart']")
     private WebElement basketButton;
 
     @FindBy(xpath = "//*[@class='product']/a")
@@ -91,8 +94,9 @@ public class LoginPage extends AbstractPage {
         return this;
     }
 
+
     @Step("Click on basket button")
-    public LoginPage clickOnBasketButton() {
+    public LoginPage clickOnBasketButton(){
         basketButton.click();
         return this;
     }
@@ -136,7 +140,7 @@ public class LoginPage extends AbstractPage {
     }
 
     @Step("Get text from notification message")
-    public String getTextFromNotification() {
+    public String getTextFromNotification(){
         return notificationLabel.getText();
     }
 }
