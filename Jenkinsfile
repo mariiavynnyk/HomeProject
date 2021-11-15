@@ -8,6 +8,7 @@ pipeline {
     }
     stage('Build') {
       steps {
+        sh 'docker pull selenoid/vnc:chrome_91.0'
         sh 'docker-compose up'
         }
       }
