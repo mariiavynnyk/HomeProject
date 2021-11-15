@@ -10,7 +10,6 @@ pipeline {
       steps {
         sh 'docker pull selenoid/vnc:chrome_91.0'
         sh 'docker-compose up'
-        }
       }
     }
     stage('Clean up') {
