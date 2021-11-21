@@ -1,6 +1,6 @@
 pipeline {
   agent {
-    label 'demo-docker-jenkins'
+    label 'master'
   }
   stages {
      stage('Test') {
