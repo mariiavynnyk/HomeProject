@@ -9,11 +9,11 @@ pipeline {
         sh 'docker pull selenoid/vnc:chrome_91.0'
       }
     }
-    stage('Clone') {
-      steps {
-        git([url: 'https://github.com/mariiavynnyk/HomeProject.git', branch: 'main'])
-      }
-    }
+    //stage('Clone') {
+    //  steps {
+    //    git([url: 'https://github.com/mariiavynnyk/HomeProject.git', branch: 'main'])
+    //  }
+    //}
    // stage('Build') {
    //   steps {
    //     sh 'docker pull selenoid/vnc:chrome_91.0'
