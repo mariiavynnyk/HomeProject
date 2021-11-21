@@ -1,11 +1,13 @@
 pipeline {
-agent {
-    label 'master'
-    }
+  agent {
+    label 'demo-docker-jenkins'
+  }
   stages {
     stage('Clone') {
       steps {
         git([url: 'https://github.com/mariiavynnyk/HomeProject.git', branch: 'main'])
+          sh 'ls -la'
+          sh 'docker --version'
       }
     }
     stage('Build') {
