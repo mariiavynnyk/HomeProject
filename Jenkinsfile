@@ -3,6 +3,12 @@ pipeline {
     label 'demo-docker-jenkins'
   }
   stages {
+     stage('Test') {
+      steps {
+        sh 'ls -la'
+        sh 'docker pull selenoid/vnc:chrome_91.0'
+      }
+    }
     stage('Clone') {
       steps {
         sh 'ls -la'
