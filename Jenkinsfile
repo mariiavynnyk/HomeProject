@@ -5,6 +5,7 @@ pipeline {
   stages {
     stage('Clone') {
       steps {
+        sh 'ls -la'
         git([url: 'https://github.com/mariiavynnyk/HomeProject.git', branch: 'main'])
           sh 'ls -la'
           sh 'docker --version'
