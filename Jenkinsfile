@@ -6,6 +6,7 @@ pipeline {
     stage('Clone') {
       steps {
         sh 'ls -la'
+        sh 'docker pull selenoid/vnc:chrome_91.0'
         git([url: 'https://github.com/mariiavynnyk/HomeProject.git', branch: 'main'])
           sh 'ls -la'
           sh 'docker --version'
