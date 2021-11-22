@@ -3,11 +3,13 @@ pipeline {
     label 'demo-docker-jenkins'
   }
   stages {
-    stage('Initialize'){
+    stage('Initialize') {
+      steps {
         def dockerHome = tool 'myDocker'
         env.PATH = "${dockerHome}/bin:${env.PATH}"
+      }
     }
-     stage('Test') {
+    stage('Test') {
       steps {
         sh 'ls -la'
         sh 'docker pull selenoid/vnc:chrome_91.0'
