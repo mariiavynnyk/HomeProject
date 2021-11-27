@@ -12,6 +12,8 @@ pipeline {
         sh './scripts/clear.sh'
         sh 'mkdir allure-report'
         sh 'chmod 777 -R allure-report'
+        sh 'mkdir target'
+        sh 'chmod 777 -R target'
         sh 'ls -la'
         sh 'pwd'
       }
