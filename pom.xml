@@ -54,8 +54,42 @@
                     <reportVersion>2.14.0</reportVersion>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <excludeDefaultDirectories>false</excludeDefaultDirectories>
+                    <outputDirectory>${project.basedir}/allure-report</outputDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.6</version>
+                <configuration>
+                    <outputEncoding>UTF-8</outputEncoding>
+                    <outputDirectory>${user.dir}/allure-report</outputDirectory>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+    <reporting>
+        <excludeDefaults>true</excludeDefaults>
+        <plugins>
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>${allure-maven.version}</version>
+                <configuration>
+                    <!-- <resultDirectory>${project.basedir}/target/allure-results</resultDirectory> -->
+                    <!-- <reportDirectory>${project.basedir}/target/allure-report</reportDirectory> -->
+                    <reportDirectory>${user.dir}/allure-report</reportDirectory>
+                    <resultsDirectory>${project.basedir}/target/allure-results</resultsDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
     <dependencies>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>

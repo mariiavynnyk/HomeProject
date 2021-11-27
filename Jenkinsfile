@@ -18,12 +18,13 @@ pipeline {
     }
     stage('Run') {
      steps {
-      sh 'cp README.md /tmp/README.md'
       sh './scripts/build.sh'
       sh './scripts/run.sh'
-      sh 'echo "http://$(hostname -i):8081"'
+      sh 'echo "http://127.0.0.1:8081"'
       sh './scripts/run-tests.sh'
       sh './scripts/generate-report.sh'
+      sh 'ls -la'
+      sh 'pwd'
      }
     }
     stage('Clean up') {
