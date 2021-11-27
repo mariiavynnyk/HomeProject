@@ -6,5 +6,3 @@ docker run -d --rm --net selenoid --name selenoid -p 4445:4444 -v /var/run/docke
 
 docker run -d --rm --net selenoid --name selenoid-ui -p 8081:8080 aerokube/selenoid-ui:latest-release \
 --selenoid-uri http://selenoid:4444
-
-docker run --rm --net selenoid --name maven maven test -e -X
