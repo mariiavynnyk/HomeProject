@@ -9,13 +9,8 @@ pipeline {
          def dockerHome = tool 'myDocker'
          env.PATH = "${dockerHome}/bin:${env.PATH}"
         }
-        sh './scripts/clear.sh'
-        sh 'mkdir allure-report'
-        sh 'chmod 777 -R allure-report'
-        sh 'mkdir target'
-        sh 'chmod 777 -R target'
-        sh 'ls -la'
-        sh 'pwd'
+        sh 'echo ${PWD}'
+        sh 'sh scripts/clear.sh'
       }
     }
     stage('Clone') {
@@ -23,21 +18,26 @@ pipeline {
        git([url: 'https://github.com/mariiavynnyk/HomeProject.git', branch: 'main'])
      }
     }
-    stage('Run') {
+    stage('Build') {
      steps {
-      sh './scripts/build.sh'
-      sh './scripts/run.sh'
-      sh 'echo "http://127.0.0.1:8081"'
-      sh './scripts/run-tests.sh'
-      sh './scripts/generate-report.sh'
-      sh 'ls -la'
-      sh 'pwd'
+      sh 'sh scripts/build.sh'
      }
     }
-    stage('Clean up') {
-      steps {
-        sh './scripts/clear.sh'
-      }
+    stage('Run Selenoid') {
+     steps {
+      sh 'sh scripts/run-selenoid.sh'
+      sh 'echo "http://127.0.0.1:8081"'
+     }
+    }
+    stage('Run Tests') {
+     steps {
+      sh 'sh scripts/run-tests.sh'
+     }
+    }
+    stage('Generate Report') {
+     steps {
+      sh 'sh scripts/report.sh'
+     }
     }
   }
 }

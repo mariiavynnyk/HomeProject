@@ -4,11 +4,16 @@ import io.ctdev.framework.config.TestConfig;
 import io.ctdev.framework.model.Customer;
 import io.ctdev.framework.pages.AbstractPage;
 import io.qameta.allure.Step;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.NoSuchElementException;
 
 public class LoginPage extends AbstractPage {
 
@@ -143,5 +148,21 @@ public class LoginPage extends AbstractPage {
     @Step("Get text from notification message")
     public String getTextFromNotification(){
         return notificationLabel.getText();
+    }
+
+    private WebElement wait(WebElement element, long timeInSeconds) {
+        try {
+        new WebDriverWait(driver, timeInSeconds).ignoring(StaleElementReferenceException.class)
+                .ignoring(NoSuchElementException.class)
+                .until(ExpectedConditions.not(ExpectedConditions.visibilityOf(element)));
+    } catch (TimeoutException ex) {
+
+        }
+        return element;
+    }
+
+    public void waitForSomething(long timeInSeconds) {
+        System.out.println("WAIT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        wait(basketProductName, timeInSeconds);
     }
 }
