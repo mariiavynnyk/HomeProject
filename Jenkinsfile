@@ -4,6 +4,7 @@ pipeline {
   }
   stages {
     stage('Initialize') {
+      agent any
       steps {
         script {
          def dockerHome = tool 'myDocker'
