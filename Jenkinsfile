@@ -9,6 +9,11 @@ pipeline {
          def dockerHome = tool 'myDocker'
          env.PATH = "${dockerHome}/bin:${env.PATH}"
         }
+        sh 'curl -L https://github.com/docker/machine/releases/download/v0.16.1/docker-machine-`uname -s`-`uname -m` >/usr/local/bin/docker-machine'
+        sh 'chmod +x /usr/local/bin/docker-machine'
+        sh 'docker-machine create --driver virtualbox default'
+        sh 'eval "$(docker-machine env default)"'
+        sh 'docker ps'
         sh 'dockerd'
         sh 'docker version'
         sh 'echo ${PWD}'
