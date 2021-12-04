@@ -10,6 +10,7 @@ pipeline {
          env.PATH = "${dockerHome}/bin:${env.PATH}"
         }
         sh 'docker version'
+        sh 'docker version'
         sh 'echo ${PWD}'
         sh 'sh scripts/clear.sh'
       }
