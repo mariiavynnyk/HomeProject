@@ -3,6 +3,7 @@ pipeline {
     label 'demo-docker-jenkins'
   }
   stages {
+    agent any
     stage('Initialize') {
       steps {
         script {
