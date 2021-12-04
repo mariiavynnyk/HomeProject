@@ -9,6 +9,7 @@ pipeline {
          def dockerHome = tool 'myDocker'
          env.PATH = "${dockerHome}/bin:${env.PATH}"
         }
+        sh 'sleep 60'
         sh 'docker version'
         sh 'docker version'
         sh 'echo ${PWD}'
