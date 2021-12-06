@@ -9,7 +9,6 @@ pipeline {
          def dockerHome = tool 'myDocker'
          env.PATH = "${dockerHome}/bin:${env.PATH}"
         }
-        sh 'sudo ls -la /var/run/docker.sock'
         sh 'docker version'
         sh 'echo ${PWD}'
         sh 'sh scripts/clear.sh'
